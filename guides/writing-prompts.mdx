@@ -1,0 +1,108 @@
+---
+title: "GIS Agent Prompt Writing: Patterns and Best Practices"
+sidebarTitle: "Writing Prompts"
+description: "Learn the three prompt patterns that get the best results from GIS Agent: the data-operation-output template, iterative refinement, and workflow archiving."
+---
+
+The quality of your GIS Agent results depends heavily on how you phrase your instructions. Unlike a search engine or general AI chatbot, GIS Agent works best when you structure prompts around a clear data source, a specific operation, and an expected output format. This guide covers three prompt patterns that consistently produce precise, efficient results.
+
+## Pattern 1 — The Golden Template: Data → Operation → Output
+
+This is the foundation of every effective GIS Agent prompt. Every clear instruction follows the same underlying structure:
+
+`[Data source] + [Specific operation] + [Output format] + [Optional follow-up action]`
+
+```
+Using [data source], perform [specific operation],
+output as [format], and [optional follow-up].
+```
+
+Here are three real examples that show this pattern in action:
+
+```text Vector tile example
+Use the OSM data in the spatiotemporal database. Clip to Wuhan city
+boundary, publish as a vector tile service, and save the result.
+```
+
+```text Spatial analysis example
+Using the restaurant POI data from the spatiotemporal database for Beijing,
+calculate density by district, and generate a choropleth map with a
+gradient from light to dark blue. Export as PNG.
+```
+
+```text Coordinate transform example
+Convert the uploaded 'parcels.shp' file from Beijing 54 coordinate system
+to WGS84. Overlay with OSM data from the spatiotemporal database and
+publish as a vector tile service.
+```
+
+<Tip>
+Always declare your data source first. Without an explicit data source, GIS Agent may use test data or cached files from a previous session, producing inconsistent results.
+</Tip>
+
+## Pattern 2 — Iterative Refinement
+
+When results are not quite right, describe the problem rather than rewriting the entire prompt. GIS Agent diagnoses issues best when you tell it what you observe, not what you think the fix should be.
+
+<Steps>
+  <Step title="Describe the visual problem directly">
+    Tell GIS Agent exactly what you see. For example: `The water layer labels are too small to read at zoom level 10.`
+  </Step>
+  <Step title="Review GIS Agent's diagnosis">
+    GIS Agent analyzes the cause and proposes a fix — for example, adjusting the default label style for that layer.
+  </Step>
+  <Step title="Confirm or refine the proposed fix">
+    Accept the suggestion or narrow it down: `Yes, increase label size to 14px and use bold weight.`
+  </Step>
+  <Step title="Roll back if needed">
+    If the fix introduces new issues, click the version history icon and select the last working version to restore a clean state.
+  </Step>
+</Steps>
+
+Here is an example of iterative refinement in practice:
+
+```text Problem description
+The bridge layer is not showing on the map.
+```
+
+```text Follow-up after GIS Agent responds
+Good, the bridges appear now. But the bridge labels overlap the road labels.
+Reduce bridge label priority so road labels show first.
+```
+
+## Pattern 3 — Workflow Archiving
+
+For long or complex workflows, archive your results at key checkpoints so you never lose progress. Use these prompts at natural stopping points in your work:
+
+```text Archive current state
+Save all current map service parameters and results.
+```
+
+```text Export process log
+Export the complete log of this spatial analysis workflow.
+```
+
+Archived checkpoints do more than protect your work — they become the foundation for **Skills**, reusable workflow blueprints your team can invoke in future projects. Every successful workflow you archive is a digital asset your organization can build on.
+
+## Data Source Best Practices
+
+1. Always name the spatiotemporal database explicitly: use the phrase `the spatiotemporal database` in your prompt
+2. For large datasets (national or global OSM), always clip to your area of interest before running analysis
+3. Specify the coordinate system for any uploaded files — never assume GIS Agent will detect it automatically
+4. For online tile services in production, use your own API key rather than GIS Agent's built-in test key
+
+## Advanced Tips
+
+<AccordionGroup>
+  <Accordion title="Switching AI Models">
+    GIS Agent supports multiple AI models, including Qwen3.6-Plus, Kimi 2.5, and others. If a task produces unexpected results, switch the model in the project settings and retry. Different models have different strengths in code generation, spatial reasoning, and Chinese language understanding — a model switch often resolves issues that repeated reprompting cannot.
+  </Accordion>
+
+  <Accordion title="Using Screenshot Circle-Select">
+    For visual layout and UI issues, use the screenshot circle-select tool: take a screenshot of the preview, circle the problematic element, and describe the issue. This lets GIS Agent make pixel-precise adjustments without you needing to specify CSS or style parameters manually.
+  </Accordion>
+
+  <Accordion title="Managing Long Conversations">
+    GIS Agent sessions have a conversation turn limit (typically 100 turns). When you reach the limit, type `continue` to extend the session. For very long workflows, use the archiving pattern to save checkpoints — this lets you start a fresh session and pick up from the saved state without losing your progress.
+  </Accordion>
+</AccordionGroup>

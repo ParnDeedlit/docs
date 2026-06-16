@@ -1,0 +1,93 @@
+---
+title: "What Is GIS Agent? The Geospatial AI Platform Explained"
+sidebarTitle: "What Is GIS Agent"
+description: "GIS Agent is MapGIS's AI-powered geospatial platform. Learn how it converts natural language into spatial analyses, map services, and GIS applications."
+---
+
+GIS Agent is MapGIS's AI-powered geospatial intelligence platform — a system that translates natural language descriptions into complete, professional GIS workflows. Rather than requiring you to master complex GIS software, spatial databases, or backend APIs, GIS Agent acts as your intelligent spatial co-pilot: you describe what you need, and it executes the full pipeline from data to deployable application.
+
+## How GIS Agent Works
+
+GIS Agent processes every request through a four-layer pipeline that takes your plain-language instruction and turns it into a live, shareable geospatial output:
+
+1. **You provide a natural language instruction** and specify a data source — no scripting, no manual tool configuration
+2. **GIS Agent's AI engine interprets your intent** and selects the appropriate tools from 115+ built-in GIS capabilities
+3. **The platform executes spatial operations** — analysis, rendering, coordinate transformation, and service publishing
+4. **You receive a preview, a shareable URL, or exported files** — ready to use, embed, or hand off
+
+```mermaid
+flowchart LR
+    A[Your Prompt] --> B[AI Intent Engine]
+    B --> C[GIS Tools & Spatial DB]
+    C --> D[Map Service / HTML App]
+    D --> E[Share or Export]
+```
+
+## GIS Agent vs. Traditional GIS Workflows
+
+| | Traditional GIS | GIS Agent |
+|---|---|---|
+| **Input** | Manual software operations | Natural language prompts |
+| **Time to result** | Days to weeks | Minutes to hours |
+| **Skill required** | GIS expert | Business language |
+| **Output** | Static files | Live services + interactive apps |
+| **Reusability** | Manual recreation | Saved Skills |
+
+## What GIS Agent Is Not
+
+<Note>
+GIS Agent is not a general-purpose AI chatbot. It is deeply integrated with MapGIS's professional GIS toolchain, spatial database engine, and Chinese GIS standards (CGCS2000, Beijing 54, Xi'an 80). It produces professionally accurate spatial analyses — not approximate AI-generated maps.
+</Note>
+
+## Key Capabilities at a Glance
+
+<CardGroup cols={2}>
+  <Card title="115+ GIS Tools" icon="toolbox">
+    Built-in tools covering data import, spatial analysis, rendering, and service publishing
+  </Card>
+  <Card title="Spatiotemporal Database" icon="database">
+    Powered by MapGIS's high-performance spatial database engine for accurate, fast queries
+  </Card>
+  <Card title="Natural Language Interface" icon="comments">
+    Describe tasks in plain language; no scripting or GIS software expertise needed
+  </Card>
+  <Card title="Skills & Workflow Reuse" icon="arrows-rotate">
+    Capture successful workflows as reusable Skills for your team
+  </Card>
+</CardGroup>
+
+## AI Model Selection
+
+GIS Agent lets you choose which underlying AI model drives your session. Switching models can improve results when a task requires different code-generation or reasoning strengths.
+
+Available models include **Qwen3.6-Plus** and **Kimi 2.5**, among others. You can change the active model from the model selector in the chat interface at any time, even mid-project. If a task produces unexpected output, try switching models and re-running the request before resorting to manual debugging.
+
+## Session Management
+
+GIS Agent gives you fine-grained control over your session state so that long or complex workflows remain recoverable:
+
+- **Restart application:** Type `/` in the chat to open the command toolbar and select **Restart App** — useful when the preview panel becomes unresponsive.
+- **Version rollback:** Every change creates a version checkpoint. You can roll back to any previous stable state directly from the version history panel, avoiding the need to re-run lengthy workflows from scratch.
+- **Context continuation:** When a session approaches its conversation limit, type `continue` to extend the context window. For very long workflows, use checkpointed saves at key milestones to protect progress.
+
+## Diagnosing Issues
+
+When a map preview fails to render or a feature behaves unexpectedly, GIS Agent integrates with your **browser's developer tools** to speed up diagnosis:
+
+1. Press **F12** to open the browser developer tools panel.
+2. Switch to the **Console** tab and copy any red error messages.
+3. Paste the error text into the GIS Agent chat — the AI will analyse the log and propose a targeted fix.
+
+Two additional feedback mechanisms help you resolve visual problems quickly:
+
+- **Font injection via prompt:** If map labels show as garbled text or missing glyphs, include a font URL in your prompt (for example, reference a public CDN font) to instruct GIS Agent to load the correct typeface.
+- **Screenshot circle-select:** For layout or styling issues that are difficult to describe in words, take a screenshot of the problem area and use the circle-select tool to highlight the specific element. GIS Agent uses the annotated screenshot to understand the exact UI issue and apply a pixel-accurate fix.
+
+## Deployment Options
+
+- **SaaS (cloud):** Sign in and go — no infrastructure setup required
+- **On-Premise:** Enterprise deployment where your data stays on your own servers
+
+<Tip>
+On-premise deployment is recommended for sensitive geographic data or compliance-regulated environments.
+</Tip>

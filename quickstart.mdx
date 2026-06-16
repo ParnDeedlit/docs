@@ -1,0 +1,81 @@
+---
+title: "GIS Agent Quickstart: Build Your First Map in Minutes"
+sidebarTitle: "Quickstart"
+description: "Step-by-step guide to creating your first GIS application with GIS Agent — from login and data connection to a live, shareable interactive map."
+---
+
+GIS Agent lets you create professional GIS applications by describing your needs in plain language. This guide walks you through logging in, connecting a data source, and generating your first interactive map.
+
+<Steps>
+  <Step title="Log In">
+    Access GIS Agent through your organization's URL or the SaaS portal. Log in with your GIS Developer Community (GIS开发者社区) account. If you don't have an account yet, register at the GIS Developer portal before continuing.
+  </Step>
+
+  <Step title="Create a New Project">
+    From the dashboard, click **New Project**. Give your project a name — for example, "My First Map." GIS Agent opens the project workspace with a chat interface on the left and a live preview panel on the right.
+  </Step>
+
+  <Step title="Specify Your Data Source">
+    In the chat interface, describe your data source first so GIS Agent knows what to work with. For example:
+
+    ```
+    Use the OSM data in the spatiotemporal database for Wuhan city.
+    ```
+
+    If you have local files, click the attachment icon, upload a Shapefile, GeoJSON, or CSV, then reference the file by name in your prompt.
+  </Step>
+
+  <Step title="Describe Your Map">
+    Type a natural language description of what you want to build. For example:
+
+    ```
+    Use OSM data from the spatiotemporal database, clip it to Wuhan city 
+    administrative boundary, publish as a vector tile service, and generate 
+    an interactive HTML map highlighting rivers, lakes, and major bridges.
+    ```
+
+    GIS Agent will automatically work through the full pipeline:
+
+    1. **Understand your intent** — parse the goal and constraints from your prompt
+    2. **Select the right tools** — choose the appropriate tools from its 115+ built-in GIS capabilities
+    3. **Execute the spatial workflow** — run data processing, analysis, and rendering
+    4. **Publish the service** — deploy the result as a live tile or web service
+    5. **Generate a preview** — display the interactive map in the right panel
+  </Step>
+
+  <Step title="Refine Your Results">
+    Review the preview in the right panel. If something looks wrong, describe the issue conversationally — no need to start over. For example:
+
+    ```
+    The water layers are not visible. Can you increase their opacity and 
+    change the river color to a deeper blue?
+    ```
+
+    GIS Agent will apply the change and update the preview. Use the **version history** to roll back to any previous state if needed.
+  </Step>
+
+  <Step title="Export or Share">
+    Once you're happy with the result, choose how to deliver it:
+
+    - Click **Export** to download the map or data in your preferred format: PNG, JPG, GeoJSON, SHP, PDF, Word, or Markdown
+    - Click **Publish** to get a shareable URL or a WMS/WFS service endpoint
+    - Click **Save as Skill** to save this entire workflow as a reusable Skill for yourself or your team
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Writing Better Prompts" icon="pen-to-square" href="/guides/writing-prompts">
+    Tips for more precise, efficient GIS instructions
+  </Card>
+  <Card title="Core Concepts" icon="book" href="/concepts/what-is-gis-agent">
+    Understand Skills, data sources, and map services
+  </Card>
+  <Card title="Spatial Analysis Guide" icon="magnifying-glass" href="/guides/spatial-analysis">
+    Common spatial analysis workflows
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/support/troubleshooting">
+    Fix common issues quickly
+  </Card>
+</CardGroup>

@@ -1,0 +1,102 @@
+---
+title: "GIS Agent Data Sources: Files, Databases, and Services"
+sidebarTitle: "Data Sources"
+description: "GIS Agent supports file uploads, spatiotemporal database connections, and WMS/WFS online services as data sources for your geospatial workflows."
+---
+
+GIS Agent does not pre-load spatial data — you connect your own data sources or specify a database connection in your prompts. Supported sources include file uploads, the MapGIS spatiotemporal database, and external WMS/WFS services. Specifying your data source explicitly at the start of every prompt is the single most important practice for reliable results.
+
+## Supported Data Source Types
+
+<Tabs>
+  <Tab title="File Upload">
+    Upload your own spatial files directly into a GIS Agent conversation.
+
+    **Supported formats:**
+    - Shapefile (`.shp` + `.dbf` + `.prj` + `.shx` — upload all four files together)
+    - GeoJSON
+    - CSV (with latitude/longitude columns)
+    - Raster files (e.g., GeoTIFF)
+
+    **How to upload:**
+    Click the attachment icon in the chat interface, select your file(s), then reference the file by name in your prompt.
+
+    **Example prompt:**
+    ```
+    Use the uploaded 'parcels.shp' file (CGCS2000 coordinate system) to calculate 
+    building footprint density by district.
+    ```
+
+    <Tip>
+    Always specify the coordinate system of your uploaded data. If it differs from your target CRS, ask GIS Agent to reproject it before running any spatial analysis.
+    </Tip>
+  </Tab>
+  <Tab title="Spatiotemporal Database">
+    The MapGIS spatiotemporal database is the recommended data source for all spatial operations.
+
+    **Why use the spatiotemporal database:**
+    - High-performance spatial indexing for large datasets
+    - Built-in OSM global and city-level data
+    - Support for CGCS2000, Beijing 54, Xi'an 80, WGS84, and other CRS
+    - Real-time data streams and version management
+
+    **How to reference it in your prompts:**
+    ```
+    Use OSM data from the spatiotemporal database for [city name]
+    ```
+
+    **Example:**
+    ```
+    Use the spatiotemporal database's OSM data. Clip to Wuhan city boundary 
+    and publish as a vector tile service.
+    ```
+
+    <Note>
+    Explicitly naming the spatiotemporal database in your prompt prevents GIS Agent from falling back to test data or stale cached files, which can produce inconsistent or incorrect results.
+    </Note>
+  </Tab>
+  <Tab title="Online Services (WMS/WFS)">
+    GIS Agent can connect to compliant online map services as data sources.
+
+    **Supported protocols:**
+    - WMS (Web Map Service)
+    - WFS (Web Feature Service)
+
+    **How to reference an online service:**
+    ```
+    Connect to the WMS service at [URL] and use the [layer name] layer 
+    for the base map.
+    ```
+
+    <Warning>
+    Only use licensed or publicly authorized online services. GIS Agent does not bypass service authentication — if a service requires credentials, you must provide them in your prompt or project settings.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Coordinate System Support
+
+GIS Agent natively handles Chinese and international coordinate systems. Supported systems include:
+
+- **CGCS2000** (China Geodetic Coordinate System 2000) — recommended for China
+- **Beijing 54** (北京54)
+- **Xi'an 80** (西安80)
+- **WGS84** (global standard)
+- **Custom local coordinate systems** (specify the full parameters in your prompt)
+
+**Example prompt for coordinate transformation:**
+
+```
+Convert the uploaded 'plots.shp' file from Beijing 54 coordinate system 
+to WGS84, then overlay it with the OSM POI data from the spatiotemporal database.
+```
+
+## Data Clipping for Performance
+
+<Tip>
+When working with large global or national datasets (such as full OSM data), always clip to your area of interest before publishing or running analysis.
+
+**Example:** `Clip the global OSM data in the spatiotemporal database to the Beijing municipality boundary before publishing the vector tile service.`
+
+Clipping first dramatically reduces processing time and improves frontend rendering performance — especially important for vector tile and raster tile services.
+</Tip>

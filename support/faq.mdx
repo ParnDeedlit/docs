@@ -1,0 +1,91 @@
+---
+title: "GIS Agent FAQ: Common Questions and Platform Answers"
+sidebarTitle: "FAQ"
+description: "Answers to common questions about GIS Agent: what it is, how to use data sources, where results are saved, and what output formats are supported."
+---
+
+This page answers the most common questions from GIS Agent users, covering product basics, data handling, output formats, coordinate systems, and platform limits.
+
+## Product Basics
+
+<AccordionGroup>
+  <Accordion title="What is GIS Agent and how is it different from a general AI chatbot?">
+    GIS Agent is not a general-purpose chatbot — it is a full-stack geospatial intelligence platform. Unlike general AI tools (which handle text and code), GIS Agent is deeply integrated with the MapGIS professional toolchain: a spatiotemporal database engine, 115+ GIS-specific tools, and support for Chinese geodetic standards (CGCS2000, Beijing 54, Xi'an 80). The key difference is output: a general AI provides answers; GIS Agent delivers deployable map services, interactive HTML applications, and spatial analysis products.
+  </Accordion>
+
+  <Accordion title="Do I need to prepare my own AI API key or language model?">
+    No. In the SaaS version, everything is included — just log in and start. In the on-premise deployment, your organization's IT team provisions the model resources. Individual users do not manage API keys or model configuration.
+  </Accordion>
+
+  <Accordion title="What is the difference between GIS Agent and GIS GeoAgent?">
+    They refer to the same product. GIS GeoAgent is the full product name; GIS Agent is the shortened name used in all documentation and communications. You will see both names used interchangeably.
+  </Accordion>
+</AccordionGroup>
+
+## Data and Input
+
+<AccordionGroup>
+  <Accordion title="What data formats can I upload?">
+    GIS Agent supports Shapefile (.shp with .dbf, .prj, .shx), GeoJSON, CSV (with latitude/longitude columns), and common raster formats. For best results, specify the coordinate system of your uploaded file in your prompt.
+  </Accordion>
+
+  <Accordion title="Where does GIS Agent's spatial data come from?">
+    GIS Agent does not pre-load spatial data — you always specify the source. Data comes from three places:
+
+    1. **Data you upload** — Shapefile, GeoJSON, CSV
+    2. **The MapGIS spatiotemporal database** — includes OSM global and city-level data, real-time sensor streams, and version-managed layers
+    3. **External WMS/WFS online services** you specify in your prompt
+  </Accordion>
+
+  <Accordion title="Can GIS Agent handle Chinese coordinate systems?">
+    Yes. GIS Agent natively supports CGCS2000, Beijing 54, Xi'an 80, and WGS84, as well as custom local coordinate systems. Specify the source and target coordinate system in your prompt when working with mixed-CRS data.
+  </Accordion>
+
+  <Accordion title="Can I clip national or global datasets to a specific city?">
+    Yes, and you should — it is strongly recommended. For large datasets like full OSM data, always clip to your area of interest first. For example:
+
+    ```text
+    Clip the OSM data from the spatiotemporal database to the Chongqing municipality boundary, then publish as a vector tile service.
+    ```
+
+    This dramatically reduces processing time and improves map rendering performance.
+  </Accordion>
+</AccordionGroup>
+
+## Results and Output
+
+<AccordionGroup>
+  <Accordion title="Where are my analysis results and maps saved?">
+    Your results are saved based on which version you use:
+
+    - **SaaS version**: All results are saved in your personal cloud project space. Access them from **My Projects** or **My Works**.
+    - **On-premise version**: All results are stored on your organization's internal server. Your data does not leave your network.
+  </Accordion>
+
+  <Accordion title="What export formats does GIS Agent support?">
+    GIS Agent supports a range of export formats across different output categories:
+
+    | Category | Formats |
+    |---|---|
+    | Map images | PNG, JPG |
+    | Spatial data | GeoJSON, Shapefile (.shp) |
+    | Map services | WMS, WFS (published service URL) |
+    | Reports | PDF, Word (.docx), Markdown |
+  </Accordion>
+
+  <Accordion title="Can I publish a map as a web service for other applications to use?">
+    Yes. GIS Agent can publish results as WMS (Web Map Service) or WFS (Web Feature Service) endpoints that conform to OGC standards. These endpoints can be connected to desktop GIS software (QGIS, ArcGIS), embedded in web applications, or called from other data platforms.
+  </Accordion>
+</AccordionGroup>
+
+## Platform and Limits
+
+<AccordionGroup>
+  <Accordion title="Is there a limit on conversation length?">
+    Yes. Sessions have a turn limit (typically 100 turns per conversation). When you reach the limit, type `continue` to extend the session. For very long workflows, use the workflow archiving pattern — save intermediate results at key checkpoints, then start a new session referencing the archived state.
+  </Accordion>
+
+  <Accordion title="What happens when the conversation context becomes too long?">
+    GIS Agent automatically compresses the context when it approaches the limit, retaining key parameters and command history. You do not need to manage this manually — it does not affect ongoing operations.
+  </Accordion>
+</AccordionGroup>

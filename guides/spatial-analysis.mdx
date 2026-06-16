@@ -1,0 +1,95 @@
+---
+title: "How to Run Spatial Analysis Workflows in GIS Agent"
+sidebarTitle: "Spatial Analysis"
+description: "Step-by-step guides for common GIS Agent spatial analysis workflows: buffer analysis, overlay analysis, raster processing, and demographic mapping."
+---
+
+GIS Agent exposes 115+ built-in GIS tools through its natural language interface, covering the full range of vector and raster spatial operations. You do not need to know which tool to call — describe your analytical goal and GIS Agent selects and orchestrates the right tools automatically. This guide walks through the most common spatial analysis workflows.
+
+## Buffer Analysis
+
+Buffer analysis identifies features within a distance threshold of a reference layer. Use it to answer questions like "how many residents live within 500 meters of a hospital?" or "which parcels fall inside a flood risk corridor?"
+
+```text Buffer analysis
+Use the spatiotemporal database's hospital POI data for Chengdu city.
+Create 500-meter and 1000-meter buffer zones around each hospital.
+Calculate the residential building count within each buffer zone.
+Publish as a vector tile service and generate a choropleth map.
+```
+
+When you run this prompt, GIS Agent automatically selects the buffer tool, executes a spatial join between the buffer zones and the building layer, aggregates building counts per zone, applies a choropleth style, and publishes the result as a vector tile service — all without you specifying any of those individual steps.
+
+## Overlay Analysis
+
+Overlay analysis combines multiple spatial layers to find intersections, conflicts, or differences. Use it for land-use compliance checks, environmental impact assessments, and any scenario where you need to know what occupies the same space.
+
+```text Overlay analysis
+Using the spatiotemporal database:
+- Take the ecological red-line boundary for Yunnan province
+- Overlay with current land use parcels (uploaded 'landuse_2024.shp')
+- Identify parcels that intersect the red-line boundary
+- Generate a report showing intersecting parcel IDs and areas
+- Export the conflicting parcels as a GeoJSON file
+```
+
+## Raster Analysis
+
+Raster analysis processes elevation data, satellite imagery, or any continuous spatial surface. Use it for terrain visualization, environmental modeling, and interpolation of point measurements.
+
+**Terrain hillshade:**
+
+```text Terrain hillshade
+Use the DEM raster data for the Tibetan Plateau from the spatiotemporal database.
+Generate a hillshade (terrain shadow map) using a sun azimuth of 315° and altitude of 45°.
+Publish as a raster tile service.
+```
+
+**Raster interpolation from point measurements:**
+
+```text Heat map / raster interpolation
+Using PM2.5 monitoring station data from the uploaded 'pm25_stations.csv',
+create an interpolated PM2.5 concentration raster for Beijing municipality.
+Classify into 5 pollution levels and render as a gradient color map.
+Export as PNG for the annual report.
+```
+
+## Demographic and POI Analysis
+
+POI and demographic analysis reveals the distribution, density, and relationships between points of interest across a study area. Use it for site selection, service coverage planning, and commercial intelligence.
+
+```text Density analysis
+Using restaurant POI data from the spatiotemporal database for Shanghai:
+1. Calculate restaurant density per square kilometer by district
+2. Identify the top 5 districts by density
+3. Render as a choropleth map with a sequential blue color scheme
+4. Add district labels and a legend
+5. Export as a PDF suitable for a business presentation
+```
+
+## Working with Chinese Coordinate Systems
+
+China uses its own national geodetic standards. GIS Agent handles coordinate transformations between all of them transparently. Use the table below to identify the right system for your data:
+
+| Coordinate System | Code | When to Use |
+|---|---|---|
+| CGCS2000 | EPSG:4490 | Recommended for all new Chinese projects |
+| Beijing 54 | EPSG:4214 | Legacy data from older surveys |
+| Xi'an 80 | EPSG:4610 | Legacy data from the 1980–2000 era |
+| WGS84 | EPSG:4326 | International data and GPS coordinates |
+
+Use this template to transform data between any two systems:
+
+```text Coordinate system transformation
+Convert the uploaded '[filename]' from [source CRS, e.g., Xi'an 80]
+to CGCS2000, then overlay with [target dataset] from the spatiotemporal database.
+```
+
+## Troubleshooting Analysis Results
+
+<Note>
+If analysis results look geometrically wrong — shifted features, misaligned layers, or coordinates that appear off — the most common cause is a coordinate system mismatch. Re-run the prompt explicitly specifying both the source and target coordinate systems.
+</Note>
+
+<Tip>
+For complex multi-step analyses, break the workflow into stages: first verify that each data layer loads correctly, then add operations one at a time. This makes it much easier to identify which step produced unexpected results.
+</Tip>

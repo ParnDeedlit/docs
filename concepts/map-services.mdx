@@ -1,0 +1,79 @@
+---
+title: "GIS Agent Map Services: Tiles, HTML Apps, and Exports"
+sidebarTitle: "Map Services"
+description: "GIS Agent can publish vector tile services, raster tile services, and interactive HTML maps, and export results as images, geodata files, or reports."
+---
+
+When GIS Agent completes a spatial workflow, it produces one or more outputs: a live map service URL, an interactive HTML application, or downloadable files. Understanding the difference between output types helps you choose the right format for your use case — whether you need a shareable web map, a service endpoint for another application, or a static file for a report.
+
+## Service Output Types
+
+<CardGroup cols={2}>
+  <Card title="Vector Tile Service" icon="layer-group">
+    Interactive, styleable maps served as `.mvt` tiles. Best for feature queries and dynamic styling.
+  </Card>
+  <Card title="Raster Tile Service" icon="image">
+    Pre-rendered image tiles. Best for terrain visualization, satellite imagery, and high-performance base maps.
+  </Card>
+  <Card title="WMS / WFS" icon="server">
+    OGC-standard services for integration with other GIS applications and desktop software.
+  </Card>
+  <Card title="Interactive HTML App" icon="browser">
+    Standalone web pages with map interaction, popups, and custom UI — ready to share or embed.
+  </Card>
+</CardGroup>
+
+## Vector Tile Services
+
+Use a vector tile service when:
+
+- You need users to click features and query attributes
+- You want to dynamically change map styles without re-publishing
+- The map needs to be embedded in a web application with interactive controls
+
+**Example prompt:**
+
+```
+Use OSM data from the spatiotemporal database for Shanghai. Publish the 
+roads, water bodies, and building footprints as a vector tile service.
+```
+
+## Raster Tile Services
+
+Use a raster tile service when:
+
+- You are visualizing terrain with hillshade (elevation + shadow rendering)
+- Your base map uses satellite or aerial imagery
+- Maximum rendering performance matters more than interactivity
+
+<Tip>
+For terrain data, generate a hillshade (terrain shadow rendering) before publishing as a raster tile — this gives the map dramatic 3D visual depth.
+
+**Example prompt:** `Generate a hillshade from the DEM data covering the Tibetan Plateau, then publish as a raster tile service.`
+</Tip>
+
+## Interactive HTML Applications
+
+GIS Agent can generate complete, standalone web map applications as HTML pages. These pages:
+
+- Include the MapLibre GL or Cesium rendering library — no external dependencies to manage
+- Are immediately previewable in GIS Agent's right panel
+- Can be shared via URL or embedded in external sites
+- Support layer toggles, popups, search, and other interactive elements
+
+## Export Formats
+
+| Format | Use Case |
+|---|---|
+| PNG / JPG | Static map image for reports and presentations |
+| GeoJSON | Sharing spatial data with other GIS tools |
+| Shapefile (`.shp`) | Exchange with desktop GIS (QGIS, ArcGIS) |
+| PDF | Print-ready reports |
+| Word (`.docx`) | Editable analysis reports |
+| Markdown | Technical documentation and wikis |
+
+## Base Map Tile Keys
+
+<Note>
+GIS Agent includes built-in API keys for public tile services (such as Tianditu) for testing purposes. For production projects, apply for your own API key directly from the service provider. Public keys may be rate-limited and are not suitable for customer-facing applications.
+</Note>

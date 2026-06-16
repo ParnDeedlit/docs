@@ -1,0 +1,148 @@
+---
+title: "GIS Agent Troubleshooting: Fixes for Common Issues"
+sidebarTitle: "Troubleshooting"
+description: "Step-by-step fixes for the most common GIS Agent problems: map preview errors, missing layers, font rendering issues, and unresponsive sessions."
+---
+
+Most GIS Agent issues fall into a small set of categories: preview rendering errors, map layers not appearing, performance problems, and unresponsive sessions. This page provides step-by-step resolution paths for each. For issues not covered here, use the in-app feedback tool: **Main Menu → Help → Report Issue**.
+
+## Map Preview Shows an Error
+
+<Steps>
+  <Step title="Let GIS Agent self-diagnose first">
+    Describe the error symptom directly to GIS Agent:
+
+    ```text
+    The map preview is showing an error. Please check the logs and fix it.
+    ```
+
+    GIS Agent can often diagnose and resolve rendering issues autonomously.
+  </Step>
+  <Step title="Switch AI models">
+    Different AI models have different code generation strengths. If the current model cannot resolve the issue, switch to a different model (Qwen3.6-Plus, Kimi 2.5) in the project settings and retry the operation.
+  </Step>
+  <Step title="Provide the browser error log">
+    Press **F12** to open your browser's developer tools. Switch to the **Console** tab. Copy any red error messages and paste them into the GIS Agent chat:
+
+    ```text
+    Browser console error: [paste error here]. Please fix this.
+    ```
+  </Step>
+  <Step title="Roll back to a working version">
+    If a recent change broke the map, click the version history icon and select the last version that worked correctly. Rolling back is faster than debugging complex rendering issues.
+  </Step>
+</Steps>
+
+<Note>
+  Error messages that mention `CORS`, `403`, or `tile service unavailable` indicate network or service access issues — not problems with your spatial data. Contact your system administrator if these persist.
+</Note>
+
+## Map Generated But Nothing Displays
+
+This typically means a frontend rendering or tile loading failure.
+
+<Steps>
+  <Step title="Open the browser console">
+    Press **F12**, then open the **Console** tab.
+  </Step>
+  <Step title="Identify the error">
+    Look for red errors mentioning tile URLs, CORS, or missing layer IDs.
+  </Step>
+  <Step title="Pass the error to GIS Agent">
+    Copy the full error and tell GIS Agent:
+
+    ```text
+    Console shows: [error text]. Fix the tile loading issue.
+    ```
+  </Step>
+  <Step title="Apply the fix">
+    Common fixes GIS Agent will apply:
+    - Correcting tile URL paths
+    - Adding CORS headers
+    - Fixing layer ID mismatches between the service and the frontend code
+  </Step>
+</Steps>
+
+## Map Labels Show Garbled Text or Missing Characters
+
+This is caused by missing font files in the frontend rendering environment. Use the following prompt to load a compatible font:
+
+```text Font fix prompt
+The map labels show garbled text. Load the Open Sans font:
+https://fonts.loli.net/css?family=Open+Sans
+```
+
+<Tip>
+  This is especially common with Chinese character labels. If Open Sans does not fix Chinese characters, specify a CJK-compatible font explicitly in your prompt.
+</Tip>
+
+## Chat Spinner Keeps Spinning (Task Seems Stuck)
+
+The right response depends on which scenario you are in.
+
+**Scenario A — Only the chat spinner is spinning**
+
+The task has likely completed on the backend. The spinning indicator is a frontend display delay — it does not mean the task failed. Ignore it and continue issuing the next prompt.
+
+**Scenario B — The project page itself fails to load**
+
+<Steps>
+  <Step title="Refresh the page">
+    Press **Ctrl+R** (Windows/Linux) or **Cmd+R** (Mac) to reload.
+  </Step>
+  <Step title="Restart the application">
+    Type `/` in the chat box to open the command toolbar, then click **Restart App**.
+  </Step>
+  <Step title="Ask GIS Agent to diagnose">
+    Type the following in the chat:
+
+    ```text
+    The project failed to start. Analyze the build and startup logs and fix the issue.
+    ```
+  </Step>
+</Steps>
+
+## Page Is Completely Unresponsive
+
+**Common causes**: a very long context (large AI conversation history), or a map rendering an extremely large dataset.
+
+**Immediate fix**: Refresh the page, then restart the conversation.
+
+<Tip>
+  Prevent unresponsive pages by following these habits:
+  - Always clip large datasets to your specific area of interest before analysis
+  - Break very large workflows into multiple sessions using the archiving pattern
+  - Avoid requesting visualization of more than ~1 million features in a single map layer
+</Tip>
+
+## Coordinate System Mismatch (Layers Don't Align)
+
+**Symptom**: Two layers that should overlap appear in completely different locations on the map.
+
+Explicitly specify the coordinate systems of your data in your prompt:
+
+```text CRS fix prompt
+The uploaded 'parcels.shp' is in Xi'an 80 (EPSG:4610) coordinate system. 
+Convert it to CGCS2000 (EPSG:4490) and re-overlay with the OSM data from 
+the spatiotemporal database.
+```
+
+## Getting Help
+
+If the steps above do not resolve your issue:
+
+<Steps>
+  <Step title="Prepare your issue description">
+    Gather the following before submitting: what you tried, the exact error message, and the operation you were performing.
+  </Step>
+  <Step title="Open the feedback tool">
+    Go to **Main Menu → Help → Report Issue** in GIS Agent.
+  </Step>
+  <Step title="Attach supporting files">
+    Attach a screenshot with the problem area circled, plus the browser console error log.
+  </Step>
+</Steps>
+
+<Note>
+  The more context you provide — data format, coordinate system, prompt text, and error message — the faster the support team can diagnose and resolve your issue.
+</Note>

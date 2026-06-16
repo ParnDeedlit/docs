@@ -1,0 +1,127 @@
+---
+title: "Build a City Map with OSM Vector Tiles: Wuhan Example"
+sidebarTitle: "City Map Example"
+description: "A complete walkthrough for creating a characteristic city map using OSM vector tile data in GIS Agent, using Wuhan as the example city."
+---
+
+This guide walks through building a city map that conveys a city's character — not just its geography. Using Wuhan, China as the example, you will learn how to select OSM layers that capture a city's identity, organize them into a meaningful visual hierarchy, apply a considered color palette, and use GIS Agent prompts to iterate toward a polished result.
+
+## Step 1 — Define Your Map Type
+
+Before touching any data or styles, decide what story your map tells. Even with the same OSM source data, different map types call for completely different layer priorities and visual weight.
+
+1. **City Identity Map**: Showcase the city's defining geographic features — rivers, lakes, iconic bridges, and landmarks. Best for presentations and first-impression maps.
+2. **City Life Map**: Focus on transit, neighborhoods, universities, hospitals, and daily-life POIs. Best for mobile navigation and local guides.
+3. **Thematic Map**: Highlight a specific topic such as flood risk, transport corridors, or cultural heritage. Best for industry and government use cases.
+
+If this is your first city map project in GIS Agent, start with the **City Identity Map**. It is the fastest way to see what makes a city visually distinctive, and it demonstrates GIS Agent's OSM vector tile capabilities most clearly.
+
+## Step 2 — Identify Characteristic OSM Layers
+
+For Wuhan, the city's most recognizable features are its two major rivers (the Yangtze and the Han), a dense lake network anchored by East Lake, a signature bridge system crossing the Yangtze, the metro network, universities, and cultural landmarks. These elements form the map's visual identity — everything else supports them.
+
+Use this priority table to guide your layer selection:
+
+| Visual Priority | OSM Layer Type | Purpose |
+|---|---|---|
+| 1 (highest) | water, waterway | Rivers and lakes as the visual backbone |
+| 2 | bridge, major roads | City skeleton and connectivity |
+| 3 | railway, metro | Transit identity |
+| 4 | landuse (university, park) | City character areas |
+| 5 | amenity POIs | Story-telling details |
+
+## Step 3 — Layer Organization
+
+Render layers from bottom to top in this order. Each layer builds on the one below it, so the visual hierarchy emerges naturally rather than requiring manual overrides:
+
+1. Background — light warm gray
+2. Water bodies — rivers and lakes
+3. Green spaces — parks, riverbanks, wetlands
+4. Road network — organized by hierarchy (expressway → arterial → collector → local)
+5. Bridge emphasis layer — extracted from the road network and rendered separately
+6. Transit layer — metro and rail treated independently from roads
+7. Building and urban texture — low contrast to support rather than compete with the main layers
+8. POI and label layer — only the most city-defining labels at each zoom level
+
+## Step 4 — Color Palette
+
+This palette captures Wuhan's character — it evokes old Hankou paper maps and the city's river-mist atmosphere without looking like a generic tech-blue base map:
+
+```text Wuhan city map color palette
+Background:        #F5F1E8  (light warm paper)
+Yangtze/Han River: #4C8FBF  (deep saturated blue)
+Lakes:             #78AFC8  (lighter lake blue)
+Parks/greenways:   #BFD8B8  (muted green)
+Key bridges:       #D46A4C  (warm orange-red accent)
+Main roads:        #F3B562  (amber)
+Secondary roads:   #E7D7B1  (light sand)
+Buildings:         #D9D0C3  (warm gray)
+Labels:            #243746  (dark blue-gray)
+```
+
+**Design rationale**: Water is the visual main character of any Wuhan map — the deep blue draws the eye to the rivers and lakes first. Bridges use a warm orange-red so they read as accent elements against the blue water. The warm paper background avoids the sterile look of default white base maps and gives the finished map a sense of place.
+
+## Step 5 — Prompt Templates
+
+Use these ready-to-run GIS Agent prompts to build and refine your Wuhan map.
+
+**First version — city identity map:**
+
+```text First version — city identity map
+Using the Wuhan OSM vector tile service from the spatiotemporal database,
+generate a city identity map. Focus on the Yangtze River, Han River,
+East Lake and major lakes, key Yangtze crossing bridges, and metro transit hubs.
+Use a warm paper background (#F5F1E8), deep blue water (#4C8FBF),
+orange bridge accents (#D46A4C), and amber main roads (#F3B562).
+Output as an interactive HTML map page.
+```
+
+**Refine — emphasize bridges and waterfront:**
+
+```text Refine — emphasize bridges and waterfront
+In the current Wuhan city map, strengthen the bridge layer visibility.
+Extract major Yangtze crossing bridges and increase their line width and label priority.
+Also reinforce the riverside parks and waterfront promenades to enhance the
+'river city' character of the map.
+```
+
+**City life variant:**
+
+```text City life variant
+Based on the Wuhan OSM vector tile service, generate a daily life navigation map.
+Keep the river and bridge structure as the background identity, but foreground
+metro stations, commercial districts, universities, hospitals, parks,
+and night economy POIs. Optimize for mobile viewing.
+```
+
+## Step 6 — Zoom Level Strategy
+
+Match the level of detail to the zoom level so the map reads clearly at every scale:
+
+| Zoom Level | What to Show |
+|---|---|
+| z ≤ 9 | Both rivers, East Lake, city outline |
+| z 10–12 | Major bridges, expressways, metro backbone |
+| z 13–15 | Commercial districts, universities, parks, major POIs |
+| z ≥ 16 | Street-level detail, local amenities |
+
+## Iteration Strategy
+
+<Tip>
+A three-pass approach produces the most reliable results:
+1. **First pass**: verify all layers load correctly and services publish cleanly — don't style anything yet
+2. **Second pass**: focus on city character — strengthen water, bridges, and transit identity
+3. **Third pass**: branch into variants for different audiences (city life map, thematic map, tourism map)
+</Tip>
+
+<Note>
+The goal is not a perfect map on the first prompt. Start with a working base, then refine specific layers one at a time. This approach lets you see results quickly and makes it much easier to identify which layer needs adjustment.
+</Note>
+
+## Quality Check
+
+A successful city identity map meets three criteria. Use them to evaluate each iteration:
+
+- **Without reading the title**, a viewer can identify the map as a river-junction, lake-dense city
+- **At medium zoom**, the bridge system is visually prominent and clearly distinct from the road network
+- **At close zoom**, universities, transit hubs, and waterfront spaces tell the city's story through their labels and icons

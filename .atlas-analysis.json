@@ -1,0 +1,88 @@
+{
+  "projectType": "saas",
+  "projectName": "GIS Agent",
+  "projectDescription": "GIS Agent is an AI-powered geospatial intelligence platform that lets users create professional GIS applications, run spatial analyses, and publish interactive maps using natural language — no GIS expertise required.",
+  "theme": "luma",
+  "primaryColor": "#286ba3",
+  "lightColor": "#deeef3",
+  "darkColor": "#6f8fb0",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/what-is-gis-agent",
+              "concepts/skills",
+              "concepts/data-sources",
+              "concepts/map-services"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/writing-prompts",
+              "guides/spatial-analysis",
+              "guides/publishing-maps",
+              "guides/city-map-example"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "support/faq",
+              "support/troubleshooting"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Policies",
+        "groups": [
+          {
+            "group": "Platform Policies",
+            "pages": [
+              "policies/platform-rules",
+              "policies/privacy-policy"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Natural language GIS task execution — describe spatial needs in plain language, get professional results",
+    "115+ built-in GIS tools covering data ingestion, spatial analysis, map rendering, and service publishing",
+    "One-click vector and raster tile service publishing from PostGIS spatial database",
+    "Support for Chinese coordinate systems (CGCS2000, Beijing 54, Xi'an 80) and domestic GIS standards",
+    "Multi-format data ingestion: Shapefile, GeoJSON, CSV, WMS/WFS services, and direct database connections",
+    "Multi-format export: PNG, JPG, GeoJSON, SHP, WMS/WFS, PDF, Word, Markdown",
+    "Skill (workflow) reuse — successful GIS workflows are saved as shareable, repeatable Skills",
+    "Iterative AI-guided refinement with version rollback",
+    "SaaS cloud and on-premise deployment options",
+    "AI model switching (Qwen, Kimi, and other LLMs) for best results"
+  ],
+  "publicApiSurface": [
+    "Natural language prompt interface for GIS task execution",
+    "Data source specification: new-generation spatiotemporal database, file upload, WMS/WFS endpoints",
+    "Skill creation and reuse workflows",
+    "Vector tile service publishing",
+    "Raster tile service publishing",
+    "Map HTML page generation and sharing",
+    "Export to PNG, JPG, GeoJSON, SHP, PDF, Word, Markdown",
+    "AI model selection (Qwen3.6-Plus, Kimi 2.5, etc.)",
+    "Session management: restart app, version rollback, context continuation",
+    "Browser developer tools integration for error diagnosis",
+    "Font injection via prompt (e.g., fonts.loli.net)",
+    "Screenshot circle-select feedback for UI issues"
+  ]
+}

@@ -1,0 +1,67 @@
+---
+title: "GIS Agent Skills: Save and Reuse Spatial Workflows"
+sidebarTitle: "Skills"
+description: "Skills are reusable GIS workflow blueprints in GIS Agent. Learn how to create, save, and share Skills to automate recurring spatial tasks."
+---
+
+A **Skill** in GIS Agent is a saved, reusable workflow — the digital capture of a successful GIS process. When you complete a spatial task (such as generating a flood risk map or clipping OSM data to a city boundary), you can save the entire workflow as a Skill. The next time you or a colleague needs the same result, you invoke the Skill instead of re-describing the task from scratch.
+
+## What a Skill Contains
+
+Each saved Skill captures the full context of a completed workflow:
+
+- The sequence of GIS operations performed
+- Data source specifications and parameters
+- Output configurations (map style, export format, service settings)
+- Prompt templates and constraints
+- Version history
+
+## Creating a Skill
+
+<Steps>
+  <Step title="Complete a task successfully in GIS Agent">
+    Run your workflow through to a result you're satisfied with before saving.
+  </Step>
+  <Step title="Save the workflow">
+    In the chat interface, type `Save this workflow as a Skill` — or click the **Save as Skill** button.
+  </Step>
+  <Step title="Give the Skill a descriptive name">
+    Use a name that reflects the business outcome, for example: `Wuhan Flood Risk Map Generator`.
+  </Step>
+  <Step title="Add optional metadata">
+    Optionally add a description and tags to make the Skill easier to find in your library.
+  </Step>
+  <Step title="Confirm the save">
+    The Skill is saved to your account's Skill library and is immediately available for reuse.
+  </Step>
+</Steps>
+
+## Using a Skill
+
+To invoke a saved Skill, you can:
+
+- **Reference it by name** in a new conversation: `Use the 'Wuhan Flood Risk Map Generator' Skill with updated 2024 rainfall data`
+- **Select it from the Skill library** in the project sidebar
+- **Share it with colleagues** in the same organization (available on enterprise plans)
+
+## Industry Skill Packs
+
+GIS Agent ships with pre-built industry Skill packs for common use cases, so you don't have to build workflows from scratch for well-established tasks:
+
+- **Natural resources:** Land use planning, ecological red-line monitoring
+- **Smart city:** Municipal pipeline inspection, community management
+- **Energy:** Power grid inspection routing, photovoltaic site selection
+- **Emergency management:** Disaster risk warning, resource dispatch mapping
+- **Commercial:** Trade area heat analysis, retail site selection
+
+<Note>
+Industry Skill availability depends on your subscription plan. Contact MapGIS to enable specific Skill packs for your organization.
+</Note>
+
+## Skill Best Practices
+
+<Tip>
+- **Name Skills after the business outcome, not the technical process.** Use `Monthly PM2.5 Pollution Map` rather than `Raster clip + WMS publish` — clear names make Skills discoverable and shareable.
+- **Archive intermediate results at key checkpoints** using the `Save all parameters and results` command. This protects complex, long-running workflows from being lost mid-process.
+- **Review and update Skills when underlying data schemas change.** A Skill that references outdated field names or deprecated data layers will fail silently — periodic review keeps your Skill library healthy.
+</Tip>
